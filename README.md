@@ -26,6 +26,7 @@ or without the `with` block
 ```
 from parfait import QGIS, open_project
 
+app = QGIS.init()
 canvas = QgsMapCanvas()
 project = open_project(pfile, canvas=canvas)
 print project
@@ -41,6 +42,7 @@ from parfait import QGIS, render_template, map_layers, open_project
 pfile = r"project.qgs"
 template = r"template.qpt"
 
+app = QGIS.init()
 canvas = QgsMapCanvas()
 with open_project(pfile, canvas=canvas) as project:
     settings = project.map_settings
