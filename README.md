@@ -9,22 +9,26 @@ The current plan is to flesh out ideas using parfait and then mirgate them to co
 What can it do so far?
 ----------------------
 
+**Note: If you are using parfait in a standalone QGIS Python app you need to call `QGIS.init()` before doing anything else.
+
 ### Opening a project
 
 ```
-with qgisapp(sys.argv, guienabled=True) as app:
-    canvas = QgsMapCanvas()
-    with open_project(pfile, canvas=canvas) as project:
-        print project
+from parfait import QGIS, open_project
+
+canvas = QgsMapCanvas()
+with open_project(pfile, canvas=canvas) as project:
+    print project
 ```
 
 or without the `with` block
 
 ```
-with qgisapp(sys.argv, guienabled=True) as app:
-    canvas = QgsMapCanvas()
-    project = open_project(pfile, canvas=canvas)
-    print project
+from parfait import QGIS, open_project
+
+canvas = QgsMapCanvas()
+project = open_project(pfile, canvas=canvas)
+print project
 ```
 
 ### Rendering a composer template from a file.
@@ -32,27 +36,25 @@ with qgisapp(sys.argv, guienabled=True) as app:
 ```python
 import sys
 from qgis.gui import QgsMapCanvas
-from wrappers import render_template, map_layers, open_project, qgisapp
+from parfait import QGIS, render_template, map_layers, open_project
 
 pfile = r"project.qgs"
 template = r"template.qpt"
 
-with qgisapp(sys.argv, guienabled=True) as app:
-    canvas = QgsMapCanvas()
-    with open_project(pfile, canvas=canvas) as project:
-        settings = project.map_settings
-        render_template(template, settings, canvas, r"out.pdf")
+canvas = QgsMapCanvas()
+with open_project(pfile, canvas=canvas) as project:
+    settings = project.map_settings
+    render_template(template, settings, canvas, r"out.pdf")
 ```
 
 or without the `with` block
 
 ```python
-with qgisapp(sys.argv, guienabled=True) as app:
-    canvas = QgsMapCanvas()
-    project = open_project(pfile, canvas=canvas)
-    settings = project.map_settings
-    render_template(template, settings, canvas, r"out.pdf")
-    project.close()
+canvas = QgsMapCanvas()
+project = open_project(pfile, canvas=canvas)
+settings = project.map_settings
+render_template(template, settings, canvas, r"out.pdf")
+project.close()
 ```
 
 ### Listing loaded layers
