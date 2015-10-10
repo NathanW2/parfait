@@ -13,7 +13,7 @@ What can it do so far?
 
 ### Opening a project
 
-```
+```python
 from parfait import QGIS, open_project
 
 canvas = QgsMapCanvas()
@@ -23,7 +23,7 @@ with open_project(pfile, canvas=canvas) as project:
 
 or without the `with` block
 
-```
+```python
 from parfait import QGIS, open_project
 
 app = QGIS.init()
@@ -69,7 +69,7 @@ mylayer = map_layers(name='mylayer')
 
 filter by regex
 
-```
+```python
 from wrappers import map_layers
 for layer in map_layers(".*Bound.*"):
     print layer.name()
